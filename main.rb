@@ -15,7 +15,7 @@ end
 puts "#{entries.count} existing entries found."
 
 secondary.execute 'SELECT * FROM entries' do |row|
-  unless entries.key?(row[2])
+  unless entries.key? row[2]
     # Set the ID to NULL so that we can insert it anew.
     row[0] = nil
     new_entries[row[2]] = row
