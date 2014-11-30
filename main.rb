@@ -1,8 +1,17 @@
 require 'rubygems'
 require 'sqlite3'
 
-primary = SQLite3::Database.new '.timetrap.db'
-secondary = SQLite3::Database.new '.timetrap.db.knox-box'
+unless ARGV[1] then
+  puts <<-usage
+Usage: main.rb primary secondary
+
+Entries will be read from the secondary database and inserted into the primary database.
+  usage
+  exit 1
+end
+
+primary = SQLite3::Database.new ARGV[0]
+secondary = SQLite3::Database.new ARGV[1]
 
 # Use a set to only allow unique entries by date/time.
 entries = {}
